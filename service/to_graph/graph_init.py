@@ -16,11 +16,7 @@ class ConnectToDatabase:
     @classmethod
     def init(cls):
         # 创建驱动的实例
-        
-        # driver = GraphDatabase.driver(
-        #     "bolt://172.30.86.10:5724",
-        #     auth=("neo4j", "neo4j.kjxm..")
-        # )
+
         driver = GraphDatabase.driver(
                 "bolt://127.0.0.1:7687",
                 auth=("neo4j", "12345678")

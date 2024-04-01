@@ -302,7 +302,6 @@ def buzzwords():
     return jsonify(res)
 
 
-
 # 搜索引擎搜索框的提示获取接口
 @app.post("/kjxmzstp/searchEngine/tips")
 def tips():
@@ -317,8 +316,6 @@ def tips():
 
     # headers = request.headers
     # logger.info("tips接口访问 headers: --{}".format(headers))
-
-
 
     try:
         raw_input_byte=request.get_data()
@@ -345,11 +342,7 @@ def tips():
 
                 return res_failed
 
-
-
-
     front_end_json = raw_input
-
 
     # 获取json 传值 如果没有传入相关字段 那么就传入
     front_end_json_tip = front_end_json.get("tip", "")
@@ -378,6 +371,7 @@ def tips():
         res["msg"] = pe.ProcessInfos.GET_FAILED.message
         res["data"] = {}
 
+    # del: 释放示例的内存
     del class_tip
     return jsonify(res)
 
@@ -511,7 +505,7 @@ def set_const():
     res={}
     res["code"] = pe.ProcessInfos.GET_SUCCEED.status_code
     res["msg"] = pe.ProcessInfos.GET_SUCCEED.message
-    res["data"] = data
+    # res["data"] = data
     return res
 
 
@@ -718,10 +712,11 @@ def dataUpdate():
         # back_end_processing=bnc.back_end_get_data_from_end_end(**res)  #字典解包
         # backend_res_data=back_end_processing.back_end_data_return()
         if backend_res_data["code"] != pe.ProcessInfos.UPDATE_SUCCEED.status_code:
+            pass
             # TODO:记录日志 表示更新错误
             # print("记录日志")
             # print(backend_res_data["msg"])
-            logger.error("数据更新失败 tquery中 --cypher_str:"+temp_dict["cypher_str"])
+            # logger.error("数据更新失败 tquery中 --cypher_str:"+temp_dict["cypher_str"])
     
     logger.info("tquery 异步更新数据成功 ")
     # print("异步更新数据结束")

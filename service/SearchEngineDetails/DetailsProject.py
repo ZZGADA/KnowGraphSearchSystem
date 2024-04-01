@@ -280,7 +280,8 @@ class DetailProject:
                     #如果是 牵头单位
                     BaseInforamtion[tempKey].append(tempNode)
             
-            
+
+        #格式化
         BaseInforamtionProcessed=dp.SearchEngineDetailsProcessing.BaseInformationProcessing(domain=self.domain,
                                                                                             BaseInformation=BaseInforamtion,
                                                                                             propertiesNameChinese=self.propertiesNameChinese)

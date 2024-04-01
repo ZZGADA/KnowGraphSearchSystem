@@ -92,7 +92,8 @@ class SearchEngineDetailsProcessing:
             
             
         return baseInf
-    
+
+    #详情页面开始方法
     def DetailsProcessing(self)->dict:
         res:dict
         domain = self.first_res.get("domain", "")
@@ -133,7 +134,8 @@ class SearchEngineDetailsProcessing:
                     initParam[key] = finalBaseInf  #分割属性
                 else:
                     initParam[key] = [baseInf]  # 属性获得为空  直接返回 然后后处理统一处理
-                
+
+            #DetailProject() 核心处理逻辑
             detailProjectExample=dp.DetailProject(initParam,projectContent,projectName,projectKeywords,projectAnnex,domain,projectExceptions)  #生成项目属性的实例对象
             detailProjectRes=detailProjectExample.processingClassification(nodes,relations)
             res=detailProjectRes
