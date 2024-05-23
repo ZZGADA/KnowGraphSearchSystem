@@ -12,6 +12,20 @@ import time
 from static.graph_const import GraphConst
 
 
+# 0515:
+def new_query_name_from_gid(g, gid):
+    res = "MATCH (n) WHERE id(n) = {} RETURN n.name".format(gid)
+
+    return g.run(res).single()
+
+
+# 0509:
+def new_query_paper_time(g, name, node_type):
+    res = "MATCH (n:{}) WHERE n.name = '{}' RETURN n.zscqlw_achievement_frequencyofpublication".format(node_type, name)
+
+    return g.run(res).single()
+
+
 def query_types_count(g, label):  # TODO:新增
     res = "MATCH (n:" + str(label) + ")"
     res += " RETURN count(n)"

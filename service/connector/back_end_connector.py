@@ -2,6 +2,7 @@ from flask import request
 from flask import jsonify
 from flask import Request
 from config import flask_config
+from cypher_util.query_data_util import new_query_paper_time, new_query_name_from_gid
 from service.to_graph import graph_init
 from config import  process_errors as pe
 import requests
@@ -129,7 +130,18 @@ class back_end_get_data_from_end_end:
     
     
     driver = graph_init.ConnectToDatabase.init()
-    
+
+    # 0515:
+    @classmethod
+    def new_query_name_from_gid_service(cls, gid):
+        result = cls.driver.session().execute_read(new_query_name_from_gid, gid)
+
+        return result
+
+    # 0509:
+    @classmethod
+    def new_query_paper_time_service(cls, name, node_type):
+        return cls.driver.session().execute_read(new_query_paper_time, name, node_type)
 
     def  __init__(self,code,cypher_str):
         self.code=code

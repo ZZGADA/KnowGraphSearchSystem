@@ -726,38 +726,16 @@ class TGraph:
                     else:
                         companies_to_search = []
                     for company_to_search in companies_to_search:
-                        # cypher_str_4 = query_second_rank_company_name_cypher_str(company_to_search)
-                        # query_res = bnc.back_end_cypher_search_and_theme_return.cypher_search_Project_Description(
-                        #     cypher_str_4, pe.Status_codes.cypher_query)
-                        #
-                        # if query_res["code"] != pe.ProcessInfos.GET_SUCCEED.status_code:
-                        #     # 如果查询失败直接返回原前端值
-                        #     logger.error(
-                        #         "更新公司选项各分支个数 --图数据库查询失败,cypher语句可能存在问题  {0} --msg:{1}  --cypher: {2}".format(
-                        #             query_res["code"], query_res["msg"], cypher_str_4))
-                        #     return False
-                        #
-                        # cur_company = query_res["data"]
-                        #
-                        # try:
-                        #     cur_company = [x["name"] for x in cur_company]
-                        # except Exception as e:
-                        #     logger.error(
-                        #         "更新公司选项各分支个数 --图数据库查询结果不包含相应字段,cypher语句可能存在问题  --cypher: {0}  --return_data: {1}  --报错: {2}".format(
-                        #             cypher_str_4, query_res["data"], str(e)))
-                        #     return False
-
-                        # 1127
-                        # if len(cur_company) >= 2:
-                        #     cur_company.remove(company_to_search)
-
-                        # if cur_company:
-                        #     raw_companies_list.append(cur_company[0])
-
                         raw_companies_list.append(company_to_search)
                 # 定义公司对应的数量字典
                 # companies_dict = dict(Counter(raw_companies_list))
-                companies_dict = Counter(raw_companies_list)
+
+                # 0403:
+                raw_companies_list_copy = []
+                for obj in raw_companies_list:
+                    raw_companies_list_copy.append(obj.strip(" "))
+
+                companies_dict = Counter(raw_companies_list_copy)
             else:
                 companies_dict = {k: v for k, v in zip(self.companies, ["0"] * len(self.companies))}
 
@@ -799,6 +777,16 @@ class TGraph:
             logger.error("图数据库查询失败  {0} --msg:{1}".format(query_res["code"], query_res["msg"]))
             return self.original, False
         res = query_res["data"]
+
+        # 0517:
+        gid_list = []
+        new_res = []
+        for obj in res:
+            if obj['gid'] not in gid_list:
+                gid_list.append(obj['gid'])
+                new_res.append(obj)
+        res = new_res
+
         # print(res)
         if res == 0:  # 查询结果为空直接返回
             logger.warning(

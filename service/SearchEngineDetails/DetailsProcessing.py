@@ -24,7 +24,7 @@ class SearchEngineDetailsProcessing:
         # 我们只需要first_res的第一个
         self.label=label
         self.text=text
-        self.first_res:dict=first_res[0]
+        self.first_res = first_res[0]
         self.second_res=second_res
 
     @staticmethod
@@ -33,7 +33,8 @@ class SearchEngineDetailsProcessing:
         count = 0
 
         for originalNode in OriginalExpertList:
-            if originalNode.get("name") == tempNode["name"]:
+            # 0403:
+            if isinstance(originalNode, dict) and originalNode.get("name") == tempNode["name"]:
                 OriginalExpertList.pop(count)
             count+=1
         OriginalExpertList.append(tempNode)

@@ -10,6 +10,8 @@ from service.connector import back_end_connector as bnc
 from config import process_errors as pe
 from flask import current_app
 import neo4j._sync.work.result
+
+from service.connector.back_end_connector import back_end_get_data_from_end_end
 from service.to_graph import graph_init
 from cypher_util.query_data_util import *
 from cypher_util.update_data_util import *
@@ -271,6 +273,7 @@ class KSearch:
 
         # 如果有点击特定节点并获取了对应的gid
         else:
+
             # 获取范围1内的原生结果
             # res_1 = self.session.execute_read(following_query_graph_search, self.gid)
             # print("uuuuuuuuuuuuuuuuu")
@@ -283,9 +286,9 @@ class KSearch:
                 return final_res_dict, False
 
             res_data = res_dict["data"]
-            
-            
-            
+
+
+
             try:
                 # 后处理
                 res_1= {x["gid"]: x["n"] for x in res_data}
@@ -297,7 +300,7 @@ class KSearch:
                 return final_res_dict, False
 
             # {x["gid"]: x["n"] for x in res}
-            
+
             # 范围1内结果的后处理
             try:
                 gid_1 = [x for x in res_1.keys()][0]
@@ -340,7 +343,7 @@ class KSearch:
                 cur_dict = dict(v.items())
                 cur_dict["gid"] = k
                 res_2_nodes.append(cur_dict)
-            
+
             # print(res_2_nodes)  #现在为空
 
             # 定义范围2内结果的所有关系列表

@@ -580,7 +580,8 @@ class GraphConst:
             "entity_project_kjsgs": ["name", "entity_project_kjsgs_content"],
             "entity_intellectual_property_paper": ["name"],
             "entity_intellectual_property_software_works": ["name"],
-            "entity_intellectual_property_patent": ["name"],
+            # 0509:
+            "entity_intellectual_property_patent": ["name", "zscqzl_achievement_awards_info"],
             "entity_intellectual_property_monograph": ["name"],
             "entity_technical_standard": ["name", "entity_technical_standard_significance"],
             "entity_process_standard": ["name"],

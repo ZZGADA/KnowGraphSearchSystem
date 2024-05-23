@@ -1,3 +1,4 @@
+from service.SearchEngineDetails.DetailsProject import DetailProject
 from  static.graph_const import GraphConst
 from config import logging_config
 logger = logging_config.logging_self_define().log(level='INFO',name="DetailsProject.py")
